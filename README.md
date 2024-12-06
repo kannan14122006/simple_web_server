@@ -1,6 +1,6 @@
 # EX01 Developing a Simple Webserver
 
-# Date:30/11/2024
+# Date:06/12/2024
 # AIM:
 To develop a simple webserver to serve html pages and display the configuration details of laptop.
 
@@ -22,126 +22,77 @@ Testing the webserver.
 
 # PROGRAM:
 ```
+from http.server import HTTPServer,BaseHTTPRequestHandler
+content='''
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LAPTOP SPECIFICATONS</title>
-   <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: lightgreen;
-          
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-        .specs-container {
-            border: 2px;
-            border-color: black;
-            background-color:whitesmoke;
-            padding: 20px;
-            border-radius: 7px;
-            box-shadow:whitesmoke;
-            width: 800px;
-        }
-        h1 {
-            text-align: center;
-            color:red;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        th, td {
-            padding: 5px;
-            text-align: left;
-            border-bottom: 1px solid rgb(165, 158, 158);
-        }
-        th {
-            background-color: #c3c5cb;
-        }
-        .brand{
-            
-            font-weight: 600;
-        }
-        nav{
-            border: 5px;
-        }
-        .top{
-            word-spacing: 20PX;
-            font-family: "Bokor", system-ui;
-            font-size: xx-large;
-        }
-    </style>
+<title>My Web Server</title>
+<style>
+table{
+color: white;
+font-weight: 500;
+border-radius: 9px;
+border-color: red;
+}
+tr,th,td{
+border-radius: 5px;
+}
+td{
+font-size: 15px;
+}
+.name{
+color: black;
+}
+</style>
 </head>
 <body>
-    <div class="specs-container">
-        <nav>
-        <h1 class="top">LAPTOP SPECIFICATONS</h1>
-        </nav>
-        <table>
-           
-            <tr>
-                <td style="font-weight: 700;">Brand</td>
-                <td CLASS="brand">LENOVO</td>
-                
-            </tr>
-            <tr>
-                <td style="font-weight: 700;">Model</td>
-                <td>ThinkPad E16 Gen 1</td>
-            </tr>
-            <tr>
-                <td style="font-weight: 700;">Processor</td>
-                <td>13th Gen Intel(R) Core(TM) i5-1335U   1.30 GHz</td>
-            </tr>
-            <tr>
-                <td style="font-weight: 700;">Display</td>
-                <td>16inch Full HD</td>
-            <tr>
-                <td style="font-weight: 700;">Operating System</td>
-                <td>Windows 11 Home Single Language</td>
-            </tr>
-            <tr>
-                <td style="font-weight: 700;">System Type</td>
-                <td>64-bit operating system, x64-based processor</td>
-            </tr>
-            <tr>
-                <td style="font-weight: 700;">RAM</td>
-                <td>16 GB (15.7 GB usable)</td>
-            </tr>
-            <tr>
-                <td style="font-weight: 700;">Storage</td>
-                <td>350 GB  SSD</td>
-            </tr>
-            <tr>
-                <td style="font-weight: 700;">Graphics</td>
-                <td>NVIDIA GeForce MX 550</td>
-            </tr>
-            
-            </tr>
-            <tr>
-                <td style="font-weight: 700;">Battery Life</td>
-                <td>5 to 8 hours</td>
-            </tr>
-            <tr>
-                <td style="font-weight: 700;">Charging Capacity</td>
-                <td>68 Watt</td>
-            </tr>
-            
-            <tr>
-                <td style="font-weight: 700;">Price</td>
-                <td>Rs: 55000 </td>
-            </tr>
-        </table>
-    </div>
+<table border="1" bgcolor="black" align="center"cellpadding="20" >
+<caption class="name">LAPTOP CONFIGURATION</caption>
+<tr>
+<th>SYSTEM CONFIGURATION</th>
+<th>DESCRIPTION</th>
+</tr>
+<tr>
+<td>Operating System</td>
+<td>Windows 11</td>
+</tr>
+<tr>
+<td>Manufacturer</td>
+<td>Lenovo</td>
+</tr>
+<tr>
+<td>Processor</td>
+<td>13th Gen Intel(R) Core(TM) i5-1335U 1.30 GHz</td>
+</tr>
+<tr>
+<td>RAM</td>
+<td>16.0GB</td>
+</tr>
+<tr>
+<td>Secondary Memory</td>
+<td>512GB</td>
+</tr>
+</table>
 </body>
 </html>
+'''
+class MyServer(BaseHTTPRequestHandler):
+    def do_GET(self):
+        print("Get request received...")
+        self.send_response(200)
+        self.send_header("content-type", "text/html")
+        self.end_headers()
+        self.wfile.write(content.encode())
+print("This is my webserver")
+server_address =('',8000)
+httpd = HTTPServer(server_address,MyServer)
+httpd.serve_forever()
 ```
+
 # OUTPUT:
-![Screenshot 2024-12-06 102233](https://github.com/user-attachments/assets/e3b4933f-3f70-448a-acf5-d9ccee5b848d)
+![Screenshot 2024-12-06 154245](https://github.com/user-attachments/assets/5116b357-90c2-4b13-8ef6-ae2a1016d205)
+![Screenshot 2024-12-06 154309](https://github.com/user-attachments/assets/1d4a567f-a49f-40a1-bc03-fa2011c91455)
 
 
 # RESULT:
